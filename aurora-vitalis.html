@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dra. Ana Beatriz — Nutricionista Integrativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────
+   RESET & TOKENS
+───────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sage:     #B5603A;
+  --sage-d:   #7A3520;
+  --sage-l:   #D9967A;
+  --sage-xl:  #F0D4C4;
+  --mint:     #FAE8DC;
+  --peach:    #F7EDE3;
+  --peach-d:  #E8C9B0;
+  --cream:    #FDF8F3;
+  --warm:     #F5EDE3;
+  --text:     #1E1610;
+  --muted:    #8A7468;
+  --white:    #FFFFFF;
+  --play:     'Playfair Display', serif;
+  --out:      'Outfit', sans-serif;
+  --r1: 62% 38% 46% 54% / 60% 44% 56% 40%;
+  --r2: 40% 60% 70% 30% / 50% 60% 40% 50%;
+  --r3: 70% 30% 50% 50% / 40% 60% 30% 70%;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--text);
+  font-family:var(--out);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+.cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--sage);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .1s,width .3s,height .3s,background .3s;
+}
+.cursor-ring{
+  position:fixed;width:40px;height:40px;
+  border:1.5px solid var(--sage);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform .12s ease-out,width .3s,height .3s;
+  opacity:.5;
+}
+
+/* ─────────────────────────────────────
+   NAV
+───────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:28px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all .5s;
+}
+nav.stuck{
+  background:rgba(253,250,245,.95);
+  backdrop-filter:blur(20px);
+  padding:16px 64px;
+  box-shadow:0 1px 0 rgba(181,96,58,.12);
+}
+.logo{
+  font-family:var(--play);font-size:18px;font-weight:400;
+  color:var(--sage-d);letter-spacing:.3px;
+}
+.logo em{font-style:italic}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+  font-size:12px;font-weight:500;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--muted);
+  text-decoration:none;transition:color .3s;
+}
+.nav-links a:hover{color:var(--sage-d)}
+.nav-pill{
+  font-size:12px;font-weight:600;letter-spacing:.5px;
+  padding:12px 28px;
+  background:var(--sage);color:var(--white);
+  text-decoration:none;
+  border-radius:100px;
+  transition:all .3s;
+}
+.nav-pill:hover{background:var(--sage-d);transform:translateY(-2px)}
+.ham{display:none;flex-direction:column;gap:5px;border:none;background:none;cursor:none;padding:4px}
+.ham span{width:22px;height:1.5px;background:var(--sage-d);display:block;border-radius:4px;transition:all .3s}
+.mob-wrap{
+  display:none;position:fixed;inset:0;background:var(--cream);z-index:490;
+  flex-direction:column;align-items:center;justify-content:center;gap:36px;
+}
+.mob-wrap.open{display:flex}
+.mob-wrap a{
+  font-family:var(--play);font-size:clamp(28px,6vw,48px);
+  font-style:italic;color:var(--text);text-decoration:none;
+  transition:color .3s;
+}
+.mob-wrap a:hover{color:var(--sage)}
+
+/* ─────────────────────────────────────
+   HERO
+───────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  background:var(--warm);
+  display:grid;grid-template-columns:1.1fr 1fr;
+  align-items:center;
+  padding:120px 64px 80px;
+  gap:60px;
+  position:relative;overflow:hidden;
+}
+
+/* ① BACKGROUND BLOB — forma de fundo atmosférica */
+.blob-bg{
+  position:absolute;
+  width:700px;height:700px;
+  border-radius: 56% 44% 62% 38% / 46% 58% 42% 54%;
+  background:radial-gradient(circle at 40% 40%, var(--sage-xl) 0%, transparent 70%);
+  right:-200px;top:-100px;
+  animation:blobFloat 14s ease-in-out infinite alternate;
+  pointer-events:none;z-index:0;
+}
+.blob-bg2{
+  position:absolute;
+  width:400px;height:400px;
+  border-radius: 38% 62% 48% 52% / 60% 40% 60% 40%;
+  background:radial-gradient(circle at 60% 60%, var(--peach) 0%, transparent 65%);
+  left:-100px;bottom:-80px;
+  animation:blobFloat2 18s ease-in-out infinite alternate;
+  pointer-events:none;z-index:0;
+}
+@keyframes blobFloat{
+  0%  {border-radius:56% 44% 62% 38% / 46% 58% 42% 54%;transform:translate(0,0) scale(1)}
+  50% {border-radius:44% 56% 38% 62% / 58% 46% 54% 42%;transform:translate(-20px,30px) scale(1.04)}
+  100%{border-radius:62% 38% 54% 46% / 40% 60% 40% 60%;transform:translate(10px,-20px) scale(.97)}
+}
+@keyframes blobFloat2{
+  0%  {border-radius:38% 62% 48% 52% / 60% 40% 60% 40%;transform:translate(0,0)}
+  100%{border-radius:62% 38% 52% 48% / 40% 60% 40% 60%;transform:translate(30px,-20px)}
+}
+
+.hero-content{position:relative;z-index:2}
+.badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(181,96,58,.1);
+  border:1px solid rgba(181,96,58,.2);
+  border-radius:100px;
+  padding:8px 20px;
+  font-size:11px;font-weight:600;
+  letter-spacing:.8px;text-transform:uppercase;
+  color:var(--sage-d);margin-bottom:36px;
+}
+.badge-dot{
+  width:6px;height:6px;background:var(--sage);
+  border-radius:50%;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(181,96,58,.5)}
+  50%{box-shadow:0 0 0 8px rgba(181,96,58,0)}
+}
+h1{
+  font-family:var(--play);
+  font-size:clamp(44px,5.5vw,80px);
+  font-weight:400;line-height:1.1;
+  letter-spacing:-.5px;
+  margin-bottom:24px;
+}
+h1 em{font-style:italic;color:var(--sage);display:block}
+.hero-sub{
+  font-size:16px;font-weight:300;line-height:1.85;
+  color:var(--muted);max-width:42ch;margin-bottom:48px;
+}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:56px}
+.btn-primary{
+  padding:16px 40px;background:var(--sage);color:var(--white);
+  font-size:13px;font-weight:600;letter-spacing:.5px;
+  text-decoration:none;border-radius:100px;
+  transition:all .3s;box-shadow:0 8px 24px rgba(181,96,58,.3);
+}
+.btn-primary:hover{background:var(--sage-d);transform:translateY(-3px);box-shadow:0 16px 40px rgba(181,96,58,.35)}
+.btn-ghost{
+  padding:16px 40px;background:transparent;
+  border:1.5px solid rgba(181,96,58,.3);
+  color:var(--text);font-size:13px;font-weight:500;
+  text-decoration:none;border-radius:100px;
+  transition:all .3s;
+}
+.btn-ghost:hover{border-color:var(--sage);color:var(--sage)}
+
+
+
+/* ③ hero right — blob foto container */
+.hero-visual{position:relative;z-index:2;display:flex;justify-content:center;align-items:center}
+
+/* ② BLOB CONTAINER SHAPE — forma que abraça a foto */
+.photo-blob{
+  width:min(420px,90vw);
+  aspect-ratio:.85;
+  background:linear-gradient(145deg, #C8DFBA 0%, #8AB870 50%, #B5603A 100%);
+  border-radius: 60% 40% 50% 50% / 50% 40% 60% 50%;
+  position:relative;overflow:hidden;
+  animation:photoBlob 10s ease-in-out infinite alternate;
+  box-shadow:0 32px 80px rgba(181,96,58,.25);
+}
+@keyframes photoBlob{
+  0%  {border-radius:60% 40% 50% 50% / 50% 40% 60% 50%}
+  50% {border-radius:40% 60% 60% 40% / 60% 50% 50% 40%}
+  100%{border-radius:55% 45% 45% 55% / 45% 55% 55% 45%}
+}
+/* texto placeholder dentro do blob */
+.photo-inner{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;
+  padding:40px;
+}
+.photo-label{
+  background:rgba(253,250,245,.92);
+  backdrop-filter:blur(12px);
+  border-radius:20px;
+  padding:20px 28px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,.6);
+  width:100%;
+}
+.photo-name{font-family:var(--play);font-size:20px;font-style:italic;color:var(--sage-d)}
+.photo-crm{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* ③ FLOATING BLOB — pequenas decorações flutuantes */
+.float-blob{
+  position:absolute;
+  background:var(--white);
+  border-radius:50%;
+  box-shadow:0 8px 32px rgba(0,0,0,.1);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+  z-index:3;
+  animation:floatBob 6s ease-in-out infinite;
+}
+.float-blob:nth-child(1){
+  width:110px;height:110px;
+  top:-20px;right:-20px;
+  border-radius:60% 40% 70% 30% / 50% 60% 40% 50%;
+  animation-delay:0s;
+}
+.float-blob:nth-child(2){
+  width:90px;height:90px;
+  bottom:40px;left:-30px;
+  border-radius:40% 60% 30% 70% / 60% 40% 60% 40%;
+  animation-delay:-2s;
+}
+@keyframes floatBob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+.fb-val{font-family:var(--play);font-size:18px;font-style:italic;color:var(--sage-d);line-height:1}
+.fb-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:2px;text-align:center;padding:0 8px}
+
+/* ─────────────────────────────────────
+   SOBRE — clip-path diagonal section
+───────────────────────────────────── */
+.sobre-wrap{
+  position:relative;
+  background:var(--sage);
+  /* ④ CLIP-PATH SHAPE — corte diagonal na seção */
+  clip-path:polygon(0 6%, 100% 0%, 100% 94%, 0% 100%);
+  padding:140px 64px;
+  margin:-40px 0;
+  z-index:1;
+}
+.sobre-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:80px;align-items:center;
+}
+.sobre-img-side{position:relative}
+
+/* ④ SVG SHAPE decorativa atrás da foto */
+.sobre-svg-deco{
+  position:absolute;
+  width:110%;height:110%;
+  top:-5%;left:-5%;
+  z-index:0;
+  opacity:.15;
+}
+
+/* ③ CONTAINER SHAPE — borda orgânica na imagem sobre */
+.sobre-photo{
+  aspect-ratio:1;
+  background:rgba(255,255,255,.15);
+  border-radius:44% 56% 50% 50% / 50% 44% 56% 50%;
+  border:2px solid rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  overflow:hidden;
+}
+.sobre-photo-inner{
+  font-family:var(--play);font-size:80px;font-style:italic;
+  color:rgba(255,255,255,.3);line-height:1;
+  user-select:none;
+}
+.sobre-text-side .sec-tag{
+  font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sage-xl);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.sobre-text-side .sec-tag::before{content:'';width:20px;height:1.5px;background:var(--sage-xl)}
+.sobre-text-side h2{
+  font-family:var(--play);
+  font-size:clamp(32px,3.5vw,52px);font-weight:400;
+  line-height:1.15;color:var(--white);
+  margin-bottom:24px;
+}
+.sobre-text-side h2 em{font-style:italic;color:var(--sage-xl)}
+.sobre-text-side p{
+  font-size:15px;font-weight:300;line-height:1.9;
+  color:rgba(253,250,245,.75);margin-bottom:14px;
+}
+.sobre-list{
+  margin-top:36px;display:flex;flex-direction:column;gap:0;
+}
+.sl-item{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);
+}
+.sl-item:first-child{border-top:1px solid rgba(255,255,255,.12)}
+/* ③ pequeno blob decorativo bullet */
+.sl-dot{
+  width:28px;height:28px;
+  background:rgba(255,255,255,.15);
+  border-radius:60% 40% 50% 50% / 40% 60% 40% 60%;
+  flex-shrink:0;
+  border:1px solid rgba(255,255,255,.2);
+}
+.sl-text{font-size:13px;font-weight:400;color:rgba(255,255,255,.8)}
+
+/* ─────────────────────────────────────
+   SERVIÇOS
+───────────────────────────────────── */
+.servicos-sec{
+  padding:140px 64px;
+  background:var(--warm);
+  position:relative;overflow:hidden;
+}
+/* ① BACKGROUND BLOB decorativo */
+.serv-blob-bg{
+  position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle, var(--mint) 0%, transparent 70%);
+  border-radius:50% 50% 60% 40% / 40% 60% 50% 50%;
+  right:-200px;bottom:-200px;
+  pointer-events:none;
+  animation:blobFloat2 20s ease-in-out infinite alternate;
+}
+.serv-blob-bg2{
+  position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle, var(--peach) 0%, transparent 70%);
+  border-radius:60% 40% 50% 50% / 50% 40% 60% 50%;
+  left:-150px;top:-100px;
+  pointer-events:none;
+  animation:blobFloat 16s ease-in-out infinite alternate;
+}
+.serv-header{
+  max-width:1200px;margin:0 auto 72px;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;
+}
+.sec-tag{
+  font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sage);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.sec-tag::before{content:'';width:20px;height:1.5px;background:var(--sage)}
+h2.sec-h{
+  font-family:var(--play);
+  font-size:clamp(32px,3.5vw,52px);font-weight:400;
+  line-height:1.15;
+}
+h2.sec-h em{font-style:italic;color:var(--sage)}
+.serv-intro-p{font-size:14px;font-weight:300;line-height:1.9;color:var(--muted);max-width:44ch}
+.serv-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  position:relative;z-index:1;
+}
+
+/* ② CARD com container shape orgânico */
+.sc{
+  background:var(--white);
+  padding:40px 36px;
+  border-radius:24px 40px 24px 40px; /* assimétrico */
+  border:1px solid rgba(181,96,58,.1);
+  position:relative;overflow:hidden;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+}
+.sc:hover{
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(181,96,58,.15);
+  border-color:rgba(181,96,58,.25);
+}
+/* ④ CLIP-PATH decorativo no canto do card */
+.sc::before{
+  content:'';
+  position:absolute;top:0;right:0;
+  width:80px;height:80px;
+  background:var(--mint);
+  clip-path:polygon(100% 0, 0 0, 100% 100%);
+  opacity:.6;
+  transition:opacity .3s;
+}
+.sc:hover::before{opacity:1}
+/* ③ blob num decorativo */
+.sc-num{
+  width:56px;height:56px;
+  background:var(--mint);
+  border-radius:60% 40% 50% 50% / 40% 60% 40% 60%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--play);font-size:18px;font-style:italic;
+  color:var(--sage-d);margin-bottom:24px;
+  transition:all .3s;
+}
+.sc:hover .sc-num{
+  background:var(--sage);color:var(--white);
+  border-radius:50%;
+}
+.sc-title{font-family:var(--play);font-size:20px;font-weight:400;margin-bottom:12px}
+.sc-desc{font-size:13px;font-weight:300;line-height:1.75;color:var(--muted)}
+
+/* ─────────────────────────────────────
+   MÉTODO — wave section
+───────────────────────────────────── */
+.metodo-sec{
+  background:var(--cream);
+  padding:60px 64px 120px;
+  position:relative;
+}
+/* ④ SVG wave shape no topo da seção */
+.wave-top{
+  position:absolute;top:-2px;left:0;right:0;
+  height:80px;overflow:hidden;
+}
+.wave-top svg{width:100%;height:100%}
+.metodo-inner{max-width:1200px;margin:0 auto}
+.metodo-header{text-align:center;margin-bottom:80px}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;position:relative}
+/* linha conectora */
+.steps-row::before{
+  content:'';
+  position:absolute;
+  top:52px;left:10%;right:10%;height:1px;
+  background:repeating-linear-gradient(
+    90deg,
+    rgba(181,96,58,.3) 0, rgba(181,96,58,.3) 8px,
+    transparent 8px, transparent 16px
+  );
+}
+.step{text-align:center;position:relative}
+
+/* ② BLOB CONTAINER para número do step */
+.step-blob{
+  width:104px;height:104px;margin:0 auto 28px;
+  background:var(--mint);
+  border-radius:60% 40% 50% 50% / 50% 60% 40% 50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--play);font-size:28px;font-style:italic;
+  color:var(--sage-d);position:relative;z-index:1;
+  transition:all .4s cubic-bezier(.16,1,.3,1);
+  border:2px solid rgba(181,96,58,.15);
+}
+.step:hover .step-blob{
+  background:var(--sage);color:var(--white);
+  border-radius:50%;
+  transform:scale(1.1);
+  box-shadow:0 16px 40px rgba(181,96,58,.3);
+}
+.step-title{font-family:var(--play);font-size:18px;font-weight:400;margin-bottom:10px}
+.step-desc{font-size:12px;font-weight:300;line-height:1.75;color:var(--muted)}
+
+/* ─────────────────────────────────────
+   DEPOIMENTOS
+───────────────────────────────────── */
+.depo-sec{
+  background:var(--sage-d);
+  padding:120px 64px;
+  position:relative;overflow:hidden;
+}
+/* ① large background blobs */
+.depo-blob1{
+  position:absolute;width:500px;height:500px;
+  border-radius:56% 44% 38% 62% / 44% 62% 38% 56%;
+  background:rgba(255,255,255,.04);
+  top:-150px;left:-150px;pointer-events:none;
+  animation:blobFloat 18s ease-in-out infinite alternate;
+}
+.depo-blob2{
+  position:absolute;width:400px;height:400px;
+  border-radius:38% 62% 54% 46% / 58% 42% 58% 42%;
+  background:rgba(255,255,255,.04);
+  bottom:-100px;right:-100px;pointer-events:none;
+  animation:blobFloat2 14s ease-in-out infinite alternate;
+}
+.depo-header{
+  text-align:center;margin-bottom:72px;
+}
+.depo-tag{
+  font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sage-l);margin-bottom:16px;
+  display:inline-flex;align-items:center;gap:12px;
+}
+.depo-tag::before,.depo-tag::after{content:'';width:20px;height:1.5px;background:var(--sage-l)}
+.depo-h{
+  font-family:var(--play);font-size:clamp(32px,3.5vw,52px);
+  font-weight:400;color:var(--white);
+}
+.depo-h em{font-style:italic;color:var(--sage-l)}
+.depo-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  position:relative;z-index:1;
+}
+
+/* ② DEPO CARD — container shape orgânico */
+.dc{
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.12);
+  padding:40px 36px;
+  border-radius:40px 24px 40px 24px;
+  transition:all .4s;
+}
+.dc:hover{
+  background:rgba(255,255,255,.12);
+  transform:translateY(-4px);
+}
+.dc-quote{
+  font-family:var(--play);font-size:64px;
+  font-style:italic;color:var(--sage-l);
+  line-height:.8;margin-bottom:20px;
+  opacity:.6;
+}
+.dc-text{
+  font-family:var(--play);font-style:italic;
+  font-size:16px;font-weight:400;line-height:1.75;
+  color:rgba(253,250,245,.9);margin-bottom:28px;
+}
+.dc-line{height:1px;background:rgba(255,255,255,.1);margin-bottom:24px}
+/* ③ avatar blob */
+.dc-who{display:flex;align-items:center;gap:14px}
+.dc-av{
+  width:44px;height:44px;
+  background:rgba(255,255,255,.15);
+  border-radius:60% 40% 50% 50% / 50% 60% 40% 50%;
+  border:1.5px solid rgba(255,255,255,.2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--play);font-style:italic;
+  color:rgba(255,255,255,.6);font-size:16px;
+}
+.dc-name{font-size:13px;font-weight:500;color:var(--white)}
+.dc-role{font-size:11px;color:rgba(253,250,245,.45);margin-top:2px}
+.dc-stars{color:var(--sage-l);font-size:11px;letter-spacing:2px;margin-top:4px}
+
+/* ─────────────────────────────────────
+   CTA FINAL
+───────────────────────────────────── */
+.cta-sec{
+  padding:140px 64px;
+  background:var(--warm);
+  position:relative;overflow:hidden;
+}
+/* ① grande blob de fundo centralizado */
+.cta-blob{
+  position:absolute;
+  width:800px;height:600px;
+  border-radius:50% 50% 60% 40% / 40% 60% 50% 50%;
+  background:radial-gradient(ellipse at center, var(--sage-xl) 0%, transparent 65%);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  animation:blobFloat 20s ease-in-out infinite alternate;
+}
+.cta-inner{
+  position:relative;z-index:1;
+  max-width:700px;margin:0 auto;
+  text-align:center;
+}
+.cta-tag{
+  font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--sage);margin-bottom:20px;
+  display:inline-flex;align-items:center;gap:12px;
+}
+.cta-tag::before,.cta-tag::after{content:'';width:20px;height:1.5px;background:var(--sage)}
+.cta-h{
+  font-family:var(--play);
+  font-size:clamp(40px,5vw,72px);font-weight:400;
+  line-height:1.1;margin-bottom:24px;
+  letter-spacing:-.5px;
+}
+.cta-h em{font-style:italic;color:var(--sage)}
+.cta-p{
+  font-size:15px;font-weight:300;line-height:1.85;
+  color:var(--muted);max-width:46ch;margin:0 auto 48px;
+}
+
+/* ③ container shape pill para o formulário */
+.cta-form-wrap{
+  background:var(--white);
+  border-radius:32px 32px 40px 40px;
+  padding:48px 56px;
+  border:1px solid rgba(181,96,58,.12);
+  box-shadow:0 32px 80px rgba(181,96,58,.12);
+}
+.cta-form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.cta-field{display:flex;flex-direction:column;gap:6px}
+.cta-label{
+  font-size:10px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;color:var(--sage);
+}
+.cta-input{
+  background:var(--warm);
+  border:1.5px solid transparent;
+  border-radius:12px;
+  padding:14px 18px;
+  color:var(--text);
+  font-family:var(--out);font-size:14px;font-weight:300;
+  outline:none;transition:border-color .3s;
+  border-radius:16px 8px 16px 8px; /* assimétrico */
+}
+.cta-input:focus{border-color:var(--sage)}
+.cta-input::placeholder{color:var(--muted)}
+textarea.cta-input{resize:none;height:100px;grid-column:1/-1;border-radius:8px 16px 8px 16px}
+.cta-full{grid-column:1/-1}
+.btn-send{
+  grid-column:1/-1;
+  padding:18px;
+  background:var(--sage);color:var(--white);
+  font-family:var(--out);font-size:13px;font-weight:600;letter-spacing:.8px;
+  border:none;cursor:none;
+  border-radius:100px;
+  transition:all .3s;
+  box-shadow:0 8px 24px rgba(181,96,58,.3);
+}
+.btn-send:hover{background:var(--sage-d);transform:translateY(-2px);box-shadow:0 16px 40px rgba(181,96,58,.35)}
+
+/* ─────────────────────────────────────
+   FOOTER
+───────────────────────────────────── */
+footer{
+  background:var(--text);
+  padding:48px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.f-logo{font-family:var(--play);font-size:20px;font-style:italic;color:var(--cream)}
+.f-copy{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(253,250,245,.3)}
+/* ③ footer blob deco */
+.f-pill{
+  font-size:11px;font-weight:500;
+  padding:10px 24px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(253,250,245,.5);
+  border-radius:100px;
+  letter-spacing:.5px;
+}
+
+/* ─────────────────────────────────────
+   REVEAL ANIMATIONS
+───────────────────────────────────── */
+.rev{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rev.on{opacity:1;transform:none}
+.rev-l{opacity:0;transform:translateX(-32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.rev-l.on{opacity:1;transform:none}
+.rev-r{opacity:0;transform:translateX(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.rev-r.on{opacity:1;transform:none}
+
+/* delays */
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+.d5{transition-delay:.5s}.d6{transition-delay:.6s}
+
+/* ─────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────── */
+@media(max-width:1100px){
+  nav,nav.stuck{padding:20px 32px}
+  .hero{grid-template-columns:1fr;padding:120px 32px 80px;gap:48px}
+  .sobre-inner{grid-template-columns:1fr;gap:48px}
+  .serv-grid{grid-template-columns:1fr 1fr}
+  .steps-row{grid-template-columns:1fr 1fr;gap:40px}
+  .steps-row::before{display:none}
+  .depo-grid{grid-template-columns:1fr 1fr}
+  .serv-header{grid-template-columns:1fr;gap:24px}
+  .sobre-wrap{padding:100px 32px;clip-path:polygon(0 3%, 100% 0%, 100% 97%, 0% 100%)}
+  .servicos-sec{padding:80px 32px}
+  .metodo-sec{padding:40px 32px 80px}
+  .depo-sec,.cta-sec{padding:80px 32px}
+  .cta-form-wrap{padding:36px 28px}
+  .cta-form-row{grid-template-columns:1fr}
+  footer{padding:36px 32px}
+}
+@media(max-width:700px){
+  nav,nav.stuck{padding:16px 20px}
+  .nav-links,.nav-pill{display:none}
+  .ham{display:flex}
+  .hero{padding:100px 20px 64px}
+  .photo-blob{width:min(320px,85vw)}
+  .serv-grid{grid-template-columns:1fr}
+  .steps-row{grid-template-columns:1fr}
+  .depo-grid{grid-template-columns:1fr}
+  .sobre-wrap{padding:80px 20px;clip-path:polygon(0 2%, 100% 0%, 100% 98%, 0% 100%)}
+  .servicos-sec,.metodo-sec,.depo-sec,.cta-sec{padding:64px 20px}
+  footer{padding:28px 20px;flex-direction:column;text-align:center}
+}
+
+@media(max-width:480px){
+  nav,nav.stuck{padding:14px 16px}
+  .hero{padding:88px 16px 56px;gap:36px}
+  h1{font-size:clamp(36px,9vw,44px)}
+  .hero-sub{font-size:14px}
+  .hero-btns{flex-direction:column;gap:12px}
+  .hero-btns a{width:100%;text-align:center;justify-content:center}
+  .photo-blob{width:min(280px,88vw)}
+  .sobre-wrap{padding:64px 16px}
+  .servicos-sec,.metodo-sec,.depo-sec,.cta-sec{padding:56px 16px}
+  h2.sec-h,.sobre-text-side h2{font-size:clamp(26px,7vw,36px)}
+  .cta-form-wrap{padding:28px 16px}
+  footer{padding:24px 16px}
+}
+@media(max-width:380px){
+  h1{font-size:34px}
+  h2.sec-h,.sobre-text-side h2{font-size:26px}
+  .hero{padding:80px 12px 48px}
+  .servicos-sec,.metodo-sec,.depo-sec,.cta-sec{padding:48px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR PERSONALIZADO -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo">Dra. Ana <em>Beatriz</em></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#metodo">Método</a></li>
+    <li><a href="#depo">Resultados</a></li>
+  </ul>
+  <a href="#cta" class="nav-pill">Agendar consulta</a>
+  <button class="ham" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob-wrap" id="mob">
+  <a href="#sobre" onclick="closeMenu()">Sobre</a>
+  <a href="#servicos" onclick="closeMenu()">Serviços</a>
+  <a href="#metodo" onclick="closeMenu()">Método</a>
+  <a href="#depo" onclick="closeMenu()">Resultados</a>
+  <a href="#cta" onclick="closeMenu()">Agendar</a>
+</div>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section class="hero">
+  <!-- ① BACKGROUND BLOBs atmosféricos -->
+  <div class="blob-bg"></div>
+  <div class="blob-bg2"></div>
+
+  <div class="hero-content">
+    <div class="badge rev"><span class="badge-dot"></span>Nutricionista Integrativa · CRN-3 12345</div>
+    <h1 class="rev d1">
+      Nutrição que<br>respeita
+      <em>quem você é.</em>
+    </h1>
+    <p class="hero-sub rev d2">
+      Cuido do seu corpo com ciência, cuidado e respeito pela sua história.
+      Sem dietas prontas, sem culpa — com saúde de verdade.
+    </p>
+    <div class="hero-btns rev d3">
+      <a href="#cta" class="btn-primary">Agendar consulta</a>
+      <a href="#sobre" class="btn-ghost">Conhecer meu trabalho</a>
+    </div>
+      <div class="hs-item">
+        <div class="hs-val">10</div>
+        <div class="hs-lbl">Anos</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-val">97%</div>
+        <div class="hs-lbl">Satisfação</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② BLOB CONTAINER SHAPE — foto orgânica -->
+  <div class="hero-visual rev-r">
+    <!-- ③ floating blobs decorativos -->
+    <!-- foto blob principal -->
+    <div class="photo-blob">
+      <!-- Substituir por <img src="foto.jpg" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"> -->
+      <div class="photo-inner">
+        <div class="photo-label">
+          <div class="photo-name">Dra. Ana Beatriz</div>
+          <div class="photo-crm">Nutricionista · São Paulo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SOBRE — clip-path diagonal
+══════════════════════════════════ -->
+<section class="sobre-wrap" id="sobre">
+  <div class="sobre-inner">
+    <div class="sobre-img-side rev-l">
+      <!-- ④ SVG SHAPE decorativa de fundo -->
+      <svg class="sobre-svg-deco" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M200 20 C300 20 380 100 380 200 C380 300 300 380 200 380 C100 380 20 300 20 200 C20 100 100 20 200 20Z" fill="white"/>
+        <circle cx="200" cy="200" r="160" fill="none" stroke="white" stroke-width="1" stroke-dasharray="8 8"/>
+        <circle cx="200" cy="200" r="120" fill="none" stroke="white" stroke-width=".5"/>
+      </svg>
+      <!-- ③ foto com container shape orgânico -->
+      <div class="sobre-photo">
+        <div class="sobre-photo-inner">AB</div>
+      </div>
+    </div>
+    <div class="sobre-text-side rev-r">
+      <div class="sec-tag">Sobre mim</div>
+      <h2>Uma nutricionista que <em>ouve</em> antes de prescrever</h2>
+      <p>Sou Ana Beatriz, nutricionista integrativa formada pela USP com 10 anos de prática clínica em São Paulo. Minha abordagem une nutrição funcional, comportamental e o respeito pela individualidade de cada paciente.</p>
+      <p>Não acredito em dietas universais. Acredito em planos alimentares que dialogam com a sua vida, sua rotina e as suas emoções.</p>
+      <div class="sobre-list">
+        <div class="sl-item"><div class="sl-dot"></div><span class="sl-text">Nutrição — USP São Paulo · Graduação 2013</span></div>
+        <div class="sl-item"><div class="sl-dot"></div><span class="sl-text">Nutrição Funcional — UNIP · Especialização 2015</span></div>
+        <div class="sl-item"><div class="sl-dot"></div><span class="sl-text">Comportamento Alimentar — IBNutri · 2018</span></div>
+        <div class="sl-item"><div class="sl-dot"></div><span class="sl-text">CRN-3 · 12345 · Registro ativo · São Paulo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     SERVIÇOS
+══════════════════════════════════ -->
+<section class="servicos-sec" id="servicos">
+  <!-- ① background blobs -->
+  <div class="serv-blob-bg"></div>
+  <div class="serv-blob-bg2"></div>
+
+  <div class="serv-header">
+    <div>
+      <div class="sec-tag rev">Serviços</div>
+      <h2 class="sec-h rev d1">Como posso <em>te ajudar</em></h2>
+    </div>
+    <p class="serv-intro-p rev d2">Cada abordagem é desenhada para a sua realidade. Cuidado individualizado, baseado em evidências e na sua história.</p>
+  </div>
+
+  <div class="serv-grid">
+    <div class="sc rev">
+      <!-- ③ blob num -->
+      <div class="sc-num">01</div>
+      <div class="sc-title">Nutrição Integrativa</div>
+      <div class="sc-desc">Abordagem que une alimentação, emoção e estilo de vida para promover saúde real e duradoura.</div>
+    </div>
+    <div class="sc rev d1">
+      <div class="sc-num">02</div>
+      <div class="sc-title">Emagrecimento Saudável</div>
+      <div class="sc-desc">Processo consciente de perda de peso com foco no bem-estar, sem restrições desnecessárias.</div>
+    </div>
+    <div class="sc rev d2">
+      <div class="sc-num">03</div>
+      <div class="sc-title">Nutrição na Gestação</div>
+      <div class="sc-desc">Suporte alimentar completo para gestantes e puérperas, com foco em saúde da mãe e do bebê.</div>
+    </div>
+    <div class="sc rev d3">
+      <div class="sc-num">04</div>
+      <div class="sc-title">Saúde Digestiva</div>
+      <div class="sc-desc">Protocolos para intestino irritável, refluxo, disbiose e modulação da microbiota intestinal.</div>
+    </div>
+    <div class="sc rev d4">
+      <div class="sc-num">05</div>
+      <div class="sc-title">Saúde da Mulher</div>
+      <div class="sc-desc">Nutrição específica para todas as fases — ciclo, menopausa, SOP e fertilidade.</div>
+    </div>
+    <div class="sc rev d5">
+      <div class="sc-num">06</div>
+      <div class="sc-title">Atendimento Online</div>
+      <div class="sc-desc">Consultas remotas com a mesma dedicação do presencial, de qualquer lugar do Brasil.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     MÉTODO — wave section
+══════════════════════════════════ -->
+<section class="metodo-sec" id="metodo">
+  <!-- ④ SVG WAVE SHAPE no topo -->
+  <div class="wave-top">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" fill="var(--warm)">
+      <path d="M0,0 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,0 Z"/>
+    </svg>
+  </div>
+
+  <div class="metodo-inner">
+    <div class="metodo-header rev">
+      <div class="sec-tag" style="justify-content:center">Como funciona</div>
+      <h2 class="sec-h">Minha forma de <em>trabalhar</em></h2>
+    </div>
+    <div class="steps-row">
+      <div class="step rev">
+        <!-- ② BLOB CONTAINER step -->
+        <div class="step-blob">01</div>
+        <div class="step-title">Escuta ativa</div>
+        <div class="step-desc">Consulta de 60 min para entender seu histórico, rotina e objetivos com profundidade real.</div>
+      </div>
+      <div class="step rev d1">
+        <div class="step-blob">02</div>
+        <div class="step-title">Avaliação completa</div>
+        <div class="step-desc">Análise de exames, bioimpedância e diagnóstico nutricional individualizado.</div>
+      </div>
+      <div class="step rev d2">
+        <div class="step-blob">03</div>
+        <div class="step-title">Plano personalizado</div>
+        <div class="step-desc">Protocolo alimentar que respeita seus gostos, sua cultura e sua rotina real.</div>
+      </div>
+      <div class="step rev d3">
+        <div class="step-blob">04</div>
+        <div class="step-title">Crescimento contínuo</div>
+        <div class="step-desc">Acompanhamento com revisões regulares e ajustes baseados no seu progresso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     DEPOIMENTOS
+══════════════════════════════════ -->
+<section class="depo-sec" id="depo">
+  <!-- ① background blobs -->
+  <div class="depo-blob1"></div>
+  <div class="depo-blob2"></div>
+
+  <div class="depo-header rev">
+    <div class="depo-tag">Resultados</div>
+    <h2 class="depo-h">Histórias que <em>inspiram</em></h2>
+  </div>
+
+  <div class="depo-grid">
+    <div class="dc rev">
+      <div class="dc-quote">"</div>
+      <p class="dc-text">A Ana Beatriz foi a primeira nutricionista que me fez sentir ouvida. O plano dela encaixou perfeitamente na minha rotina agitada.</p>
+      <div class="dc-line"></div>
+      <div class="dc-who">
+        <!-- ③ avatar blob orgânico -->
+        <div class="dc-av">G</div>
+        <div>
+          <div class="dc-name">Gabriela Santos</div>
+          <div class="dc-role">Gerente · 36 anos</div>
+          <div class="dc-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="dc rev d1">
+      <div class="dc-quote">"</div>
+      <p class="dc-text">Voltei ao meu peso ideal depois de duas gestações sem precisar fazer dieta. Só aprendi a comer de um jeito diferente.</p>
+      <div class="dc-line"></div>
+      <div class="dc-who">
+        <div class="dc-av">F</div>
+        <div>
+          <div class="dc-name">Fernanda Lima</div>
+          <div class="dc-role">Professora · 34 anos</div>
+          <div class="dc-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+    <div class="dc rev d2">
+      <div class="dc-quote">"</div>
+      <p class="dc-text">Meu intestino melhorou 90% em dois meses. Achei que precisaria de remédio para sempre — era alimentação.</p>
+      <div class="dc-line"></div>
+      <div class="dc-who">
+        <div class="dc-av">L</div>
+        <div>
+          <div class="dc-name">Lucas Moreira</div>
+          <div class="dc-role">Estudante · 24 anos</div>
+          <div class="dc-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CTA FINAL
+══════════════════════════════════ -->
+<section class="cta-sec" id="cta">
+  <!-- ① BACKGROUND BLOB central grande -->
+  <div class="cta-blob"></div>
+
+  <div class="cta-inner">
+    <div class="cta-tag rev">Agende sua consulta</div>
+    <h2 class="cta-h rev d1">Vamos cuidar<br>de <em>você juntas?</em></h2>
+    <p class="cta-p rev d2">Agende sua consulta inicial. É o primeiro passo para uma relação mais saudável e consciente com a alimentação.</p>
+
+    <!-- ③ CONTAINER SHAPE — card do formulário -->
+    <div class="cta-form-wrap rev d3">
+      <div class="cta-form-row">
+        <div class="cta-field">
+          <label class="cta-label">Nome completo</label>
+          <input class="cta-input" type="text" placeholder="Seu nome">
+        </div>
+        <div class="cta-field">
+          <label class="cta-label">E-mail</label>
+          <input class="cta-input" type="email" placeholder="seu@email.com">
+        </div>
+        <div class="cta-field">
+          <label class="cta-label">Telefone</label>
+          <input class="cta-input" type="tel" placeholder="(11) 00000-0000">
+        </div>
+        <div class="cta-field">
+          <label class="cta-label">Objetivo</label>
+          <input class="cta-input" type="text" placeholder="Ex: emagrecer, tratar intestino...">
+        </div>
+        <div class="cta-field cta-full">
+          <label class="cta-label">Mensagem</label>
+          <textarea class="cta-input" placeholder="Conte um pouco sobre você..."></textarea>
+        </div>
+        <button class="btn-send" onclick="alert('Mensagem enviada! Entrarei em contato em breve.')">Enviar mensagem</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Dra. Ana Beatriz · Nutricionista</div>
+  <div class="f-pill">CRN-3 · 12345 · São Paulo</div>
+  <div class="f-copy">© 2025</div>
+</footer>
+
+<script>
+/* cursor */
+const cur=document.getElementById('cur');
+const curR=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2)';cur.style.background='var(--sage-l)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';cur.style.background='var(--sage)'});
+});
+
+/* nav */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stuck',scrollY>60));
+
+/* reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}});
+},{threshold:.08});
+document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el=>obs.observe(el));
+
+/* mobile menu */
+function toggleMenu(){document.getElementById('mob').classList.toggle('open')}
+function closeMenu(){document.getElementById('mob').classList.remove('open')}
+</script>
+</body>
+</html>

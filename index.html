@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nykolas Volkmann — Opção A: Dark Mode</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#080809;--bg2:#0F0F12;--bg3:#16161A;
+  --white:#F0EEE9;--muted:rgba(240,238,233,.38);
+  --accent:#7FFFD4;--accent2:#5BEDD8;--acc-glow:rgba(127,255,212,.15);
+  --line:rgba(255,255,255,.07);
+  --sans:'Syne',sans-serif;--serif:'Instrument Serif',serif;--mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* SCANLINES */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 2px);
+}
+
+nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 56px;transition:all .4s;border-bottom:1px solid transparent}
+nav.stuck{background:rgba(8,8,9,.94);backdrop-filter:blur(20px);border-color:var(--line);padding:16px 56px}
+.logo{font-size:.8rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.logo span{color:var(--accent)}
+.nav-mono{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.1em}
+
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 56px 72px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(127,255,212,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(127,255,212,.04) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none}
+.hero-glow{position:absolute;top:-20%;left:-10%;width:60%;height:80%;
+  background:radial-gradient(ellipse,rgba(127,255,212,.06) 0%,transparent 65%);pointer-events:none}
+.hero-num{position:absolute;right:-3%;bottom:-5%;font-size:clamp(18rem,30vw,38rem);font-weight:800;
+  color:rgba(127,255,212,.03);letter-spacing:-.08em;line-height:1;pointer-events:none;user-select:none}
+
+.hero-tag{font-family:var(--mono);font-size:.62rem;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;margin-bottom:32px;display:flex;align-items:center;gap:12px}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+.hero-h1{font-size:clamp(4rem,10vw,12rem);font-weight:800;line-height:.9;letter-spacing:-.05em;position:relative;z-index:2}
+.hero-h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);font-size:1.05em;display:block}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--line);position:relative;z-index:2}
+.hero-desc{font-size:.9rem;line-height:1.75;color:var(--muted);max-width:400px}
+.hero-desc strong{color:var(--white)}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(127,255,212,.3);padding:14px 28px;transition:all .3s;flex-shrink:0}
+.hero-cta:hover{background:var(--acc-glow);border-color:var(--accent);gap:18px}
+
+/* PROJECTS */
+.sec{padding:112px 56px;border-top:1px solid var(--line)}
+.sec-ey{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.22em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.sec-ey::before{content:'';width:20px;height:1px;background:var(--accent)}
+.sec-h{font-size:clamp(2.4rem,5vw,5rem);font-weight:800;line-height:.95;letter-spacing:-.04em;margin-bottom:64px}
+.sec-h em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line)}
+.card{background:var(--bg2);display:block;transition:background .3s}
+.card:hover{background:var(--bg3)}
+.thumb{aspect-ratio:16/9;position:relative;overflow:hidden}
+.swatch{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative}
+.swatch-lbl{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.25);letter-spacing:.14em;text-transform:uppercase;position:relative;z-index:2}
+.thumb-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.75) 100%);opacity:0;transition:opacity .35s;display:flex;align-items:flex-end;padding:20px}
+.card:hover .thumb-overlay{opacity:1}
+.thumb-cta{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.14em;text-transform:uppercase}
+.card-body{padding:24px 28px 32px}
+.card-idx{font-family:var(--mono);font-size:.58rem;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px;opacity:.7}
+.card-title{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;transition:color .25s}
+.card:hover .card-title{color:var(--accent)}
+.card-desc{font-size:.8rem;line-height:1.65;color:var(--muted);margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 8px;border:1px solid var(--line)}
+.card-wide{grid-column:1/-1}
+.card-wide .inner{display:grid;grid-template-columns:1fr 1fr}
+.card-wide .thumb{aspect-ratio:auto;min-height:200px}
+
+/* CONTACT */
+.contact{padding:112px 56px;border-top:1px solid var(--line);text-align:center}
+.contact-h{font-size:clamp(2.8rem,7vw,7rem);font-weight:800;line-height:.9;letter-spacing:-.05em;margin-bottom:24px}
+.contact-h em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);display:block}
+.contact-sub{font-size:.9rem;color:var(--muted);max-width:360px;margin:0 auto 48px;line-height:1.7}
+.btn-wa{display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:var(--bg);font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:16px 40px;transition:all .3s}
+.btn-wa:hover{background:var(--accent2);transform:translateY(-2px)}
+
+footer{border-top:1px solid var(--line);padding:24px 56px;display:flex;justify-content:space-between;align-items:center}
+footer p{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.08em}
+.ft-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:blink 1.6s steps(1) infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.sr{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.sr.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+
+@media(max-width:900px){
+  nav,nav.stuck{padding:18px 24px}
+  .hero{padding:0 24px 56px}
+  .sec{padding:80px 24px}
+  .contact{padding:80px 24px}
+  .grid{grid-template-columns:1fr}
+  .card-wide .inner{grid-template-columns:1fr}
+  footer{padding:20px 24px;flex-direction:column;gap:12px;text-align:center}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .hero-h1{font-size:clamp(3.2rem,10vw,5rem)}
+}
+@media(max-width:600px){
+  nav,nav.stuck{padding:14px 18px}
+  .hero{padding:0 18px 48px}
+  .sec{padding:64px 18px}
+  .contact{padding:64px 18px}
+  .hero-h1{font-size:clamp(2.8rem,11vw,4rem)}
+  .sec-h{font-size:clamp(2rem,9vw,3rem)}
+  .contact-h{font-size:clamp(2.2rem,9vw,3.5rem)}
+  .card-body{padding:20px 20px 28px}
+  .hero-tag{font-size:.6rem}
+  .btn-wa{padding:14px 28px;font-size:.7rem}
+}
+@media(max-width:380px){
+  .hero{padding:0 14px 40px}
+  .sec{padding:56px 14px}
+  .contact{padding:56px 14px}
+  .hero-h1{font-size:2.4rem}
+  .hero-cta{padding:12px 20px;font-size:.6rem}
+}
+</style>
+</head>
+<body>
+
+
+
+<nav id="nav">
+  <span class="logo">Nykolas <span>Volkmann</span></span>
+  <span class="nav-mono">// web design</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-num" aria-hidden="true">NV</div>
+  <p class="hero-tag">Portfólio — 2025</p>
+  <h1 class="hero-h1">Sites que<br><em>convertem.</em></h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Crio <strong>landing pages de alto impacto</strong> para profissionais de qualquer área. Design estratégico, identidade visual forte.</p>
+    <a href="#projetos" class="hero-cta">Ver modelos <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+  </div>
+</section>
+
+<section class="sec" id="projetos">
+  <div class="sec-ey sr">Modelos disponíveis</div>
+  <h2 class="sec-h sr d1">Escolha seu<br><em>estilo</em></h2>
+  <div class="grid">
+    <a class="card sr d1" href="aurora-vitalis.html" target="_blank">
+      <div class="thumb"><div class="swatch" style="background:linear-gradient(135deg,#1A0E08,#3D1F10,#B5603A)"><span class="swatch-lbl">terracota · orgânico</span></div><div class="thumb-overlay"><span class="thumb-cta">→ Ver modelo</span></div></div>
+      <div class="card-body"><div class="card-idx">Modelo 01</div><h3 class="card-title">Aurora Vitalis</h3><p class="card-desc">Formas orgânicas e tipografia expressiva. Para profissionais que querem transmitir leveza e naturalidade.</p><div class="tags"><span class="tag">Terracota</span><span class="tag">Orgânico</span><span class="tag">Moderno</span></div></div>
+    </a>
+    <a class="card sr d2" href="velvet-nature.html" target="_blank">
+      <div class="thumb"><div class="swatch" style="background:linear-gradient(135deg,#100D06,#2A2008,#9A6B2E)"><span class="swatch-lbl">âmbar · premium</span></div><div class="thumb-overlay"><span class="thumb-cta">→ Ver modelo</span></div></div>
+      <div class="card-body"><div class="card-idx">Modelo 02</div><h3 class="card-title">Velvet Nature</h3><p class="card-desc">Tons âmbar e dourado que transmitem luxo. Perfeito para clínicas de alto padrão.</p><div class="tags"><span class="tag">Âmbar</span><span class="tag">Luxo</span><span class="tag">Premium</span></div></div>
+    </a>
+    <a class="card sr d3" href="maison-rose.html" target="_blank">
+      <div class="thumb"><div class="swatch" style="background:linear-gradient(135deg,#120610,#3A1525,#6B2D3E)"><span class="swatch-lbl">borgonha · elegante</span></div><div class="thumb-overlay"><span class="thumb-cta">→ Ver modelo</span></div></div>
+      <div class="card-body"><div class="card-idx">Modelo 03</div><h3 class="card-title">Maison Rosé</h3><p class="card-desc">Elegância borgonha com tipografia refinada. Para quem quer comunicar autoridade e sofisticação.</p><div class="tags"><span class="tag">Borgonha</span><span class="tag">Elegante</span><span class="tag">Clínico</span></div></div>
+    </a>
+    <a class="card sr d4" href="atelier-cuivre.html" target="_blank">
+      <div class="thumb"><div class="swatch" style="background:linear-gradient(135deg,#0E0C09,#2A2015,#A0622A)"><span class="swatch-lbl">cobre · editorial</span></div><div class="thumb-overlay"><span class="thumb-cta">→ Ver modelo</span></div></div>
+      <div class="card-body"><div class="card-idx">Modelo 04</div><h3 class="card-title">Atelier Cuivre</h3><p class="card-desc">Estética editorial de revista de luxo em tons de cobre. Grid rigoroso e tipografia Playfair.</p><div class="tags"><span class="tag">Cobre</span><span class="tag">Editorial</span><span class="tag">Tipográfico</span></div></div>
+    </a>
+    <a class="card card-wide sr d5" href="studio-blush.html" target="_blank">
+      <div class="inner">
+        <div class="thumb"><div class="swatch" style="background:linear-gradient(135deg,#120A0A,#300A0A,#B07878);height:100%"><span class="swatch-lbl">rosa antigo · delicado</span></div><div class="thumb-overlay"><span class="thumb-cta">→ Ver modelo</span></div></div>
+        <div class="card-body" style="display:flex;flex-direction:column;justify-content:center"><div class="card-idx">Modelo 05 — Destaque</div><h3 class="card-title" style="font-size:1.5rem">Studio Blush</h3><p class="card-desc">Rosa antigo com formas arredondadas. O equilíbrio perfeito entre feminino e profissional.</p><div class="tags"><span class="tag">Rosa Antigo</span><span class="tag">Delicado</span><span class="tag">Feminino</span></div></div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="sec-ey sr" style="justify-content:center">Vamos conversar</div>
+  <h2 class="contact-h sr d1">Gostou de<br><em>algum modelo?</em></h2>
+  <p class="contact-sub sr d2">Entre em contato e personalizamos o modelo escolhido com suas fotos, cores e textos.</p>
+  <a href="https://wa.me/5547996806367" target="_blank" class="btn-wa sr d3">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Falar no WhatsApp
+  </a>
+</section>
+
+<footer>
+  <p>© 2025 Nykolas Volkmann</p>
+  <div class="ft-dot"></div>
+  <p>Web Design & Desenvolvimento</p>
+</footer>
+
+<script>
+document.getElementById('nav').addEventListener('click',()=>{});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stuck',scrollY>60),{passive:true});
+const obs=new IntersectionObserver(e=>e.forEach(i=>{if(i.isIntersecting){i.target.classList.add('in');obs.unobserve(i.target)}}),{threshold:.08});
+document.querySelectorAll('.sr').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

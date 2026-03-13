@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dra. Ana Beatriz — Nutricionista Integrativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--sage:#B07878;--sage-dark:#7A4545;--cream:#F5EEE8;--warm:#EDD8CC;--earth:#8B5A4E;--text:#2C1E1E;--muted:#8A6868;--white:#FEFCF7;--line:rgba(176,120,120,.18);--lora:'Lora',serif;--body:'Plus Jakarta Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:var(--body);overflow-x:hidden}
+/* ORGANIC shapes */
+.blob{position:absolute;border-radius:60% 40% 70% 30%/40% 60% 30% 70%;background:rgba(176,120,120,.08);pointer-events:none}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:24px 60px;display:flex;justify-content:space-between;align-items:center;transition:all .4s}
+nav.s{background:rgba(254,252,247,.95);backdrop-filter:blur(16px);padding:16px 60px;border-bottom:1px solid var(--line);box-shadow:0 2px 24px rgba(0,0,0,.05)}
+.nav-logo{font-family:var(--lora);font-size:17px;font-weight:400;color:var(--sage-dark);letter-spacing:.5px}
+.nav-logo em{font-style:italic}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.5px;color:var(--muted);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--sage-dark)}
+.nav-btn{font-size:12px;font-weight:600;padding:10px 24px;background:var(--sage);color:var(--white);text-decoration:none;border-radius:100px;transition:all .3s}
+.nav-btn:hover{background:var(--sage-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;border:none;background:none;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:1.5px;background:var(--sage-dark);display:block;border-radius:2px;transition:all .3s}
+.mob{display:none;position:fixed;inset:0;background:var(--white);z-index:190;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mob.open{display:flex}
+.mob a{font-family:var(--lora);font-size:clamp(24px,5vw,40px);font-style:italic;color:var(--text);text-decoration:none;transition:color .3s}
+.mob a:hover{color:var(--sage)}
+/* HERO */
+.hero{min-height:100vh;background:var(--cream);display:grid;grid-template-columns:1.1fr 1fr;align-items:center;padding:100px 60px 80px;gap:80px;position:relative;overflow:hidden}
+.hero .blob{width:500px;height:500px;bottom:-150px;right:-150px;background:rgba(176,120,120,.1)}
+.hero-left{position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(176,120,120,.12);border:1px solid var(--line);border-radius:100px;padding:8px 18px;font-size:11px;font-weight:600;color:var(--sage-dark);margin-bottom:32px}
+.hero-badge-dot{width:6px;height:6px;background:var(--sage);border-radius:50%}
+h1.hero-h1{font-family:var(--lora);font-size:clamp(40px,6vw,72px);font-weight:400;line-height:1.15;margin-bottom:20px}
+h1.hero-h1 em{font-style:italic;color:var(--sage);display:block}
+.hero-desc{font-size:16px;line-height:1.9;color:var(--muted);max-width:44ch;margin-bottom:44px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-sage{padding:16px 36px;background:var(--sage);color:var(--white);font-weight:600;font-size:13px;text-decoration:none;border-radius:100px;transition:all .3s}
+.btn-sage:hover{background:var(--sage-dark);transform:translateY(-2px)}
+.btn-warm{padding:16px 36px;background:transparent;border:1.5px solid var(--line);color:var(--text);font-weight:600;font-size:13px;text-decoration:none;border-radius:100px;transition:all .3s}
+.btn-warm:hover{border-color:var(--sage);color:var(--sage)}
+.hero-right{position:relative;z-index:2}
+.hero-photo{aspect-ratio:4/5;background:linear-gradient(150deg,#E8D0D4,#C8A0A8);border-radius:40% 60% 60% 40%/60% 40% 60% 40%;display:flex;align-items:center;justify-content:center;font-size:100px;position:relative;overflow:hidden;transition:border-radius 4s}
+.hero-photo:hover{border-radius:50%}
+.hero-crn{position:absolute;bottom:-20px;right:-20px;background:var(--white);border:1px solid var(--line);border-radius:20px;padding:20px 24px;box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.crn-val{font-family:var(--lora);font-size:28px;font-weight:400;color:var(--sage-dark);font-style:italic}
+.crn-lbl{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+/* SOBRE */
+.sobre{padding:120px 60px;max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+.sobre-visual{position:relative}
+.sobre-img{aspect-ratio:1;background:linear-gradient(135deg,var(--warm),var(--cream));border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:80px;position:relative}
+.sobre-img::before{content:'';position:absolute;inset:-12px;border:1px solid var(--line);border-radius:32px;z-index:-1}
+.sobre-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.stag{background:rgba(176,120,120,.1);border:1px solid var(--line);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:600;color:var(--sage-dark)}
+.sec-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--sage);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.sec-label::before{content:'';width:24px;height:1.5px;background:var(--sage);border-radius:2px}
+.sec-title{font-family:var(--lora);font-size:clamp(28px,3.5vw,44px);font-weight:400;line-height:1.2;margin-bottom:24px}
+.sec-title em{font-style:italic;color:var(--sage)}
+.body-text{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:16px}
+.formacao{margin-top:40px;display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.fi-item{display:flex;align-items:center;gap:16px;padding:18px 24px;background:var(--white);border-bottom:1px solid var(--line)}
+.fi-item:last-child{border-bottom:none}
+.fi-item:hover{background:rgba(176,120,120,.04)}
+.fi-ico{font-size:20px}
+.fi-name{font-size:13px;font-weight:600;color:var(--text)}
+.fi-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+
+
+
+
+/* SERVIÇOS */
+.servicos{padding:120px 60px;background:var(--cream);max-width:100%}
+.servicos-inner{max-width:1300px;margin:0 auto}
+.serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.sc{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:40px 32px;transition:all .3s;position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--sage);transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.sc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.08)}
+.sc:hover::after{transform:scaleX(1)}
+.sc-ico{font-size:36px;margin-bottom:20px;display:block}
+.sc-name{font-family:var(--lora);font-size:20px;font-weight:400;margin-bottom:12px}
+.sc-desc{font-size:13px;line-height:1.75;color:var(--muted)}
+/* MÉTODO */
+.metodo{padding:120px 60px;max-width:1300px;margin:0 auto}
+.metodo-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:64px;position:relative}
+.metodo-steps::before{content:'';position:absolute;top:48px;left:10%;right:10%;height:1px;background:repeating-linear-gradient(90deg,var(--line),var(--line) 6px,transparent 6px,transparent 12px)}
+.ms{text-align:center;position:relative}
+.ms-circle{width:96px;height:96px;background:var(--cream);border:2px solid var(--line);border-radius:50%;margin:0 auto 28px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;z-index:1;transition:all .3s}
+.ms:hover .ms-circle{background:var(--sage);border-color:var(--sage)}
+.ms-title{font-family:var(--lora);font-size:17px;font-weight:400;margin-bottom:10px}
+.ms-desc{font-size:12px;line-height:1.75;color:var(--muted)}
+/* DEPO */
+.depo{padding:120px 60px;background:var(--cream);max-width:100%}
+.depo-inner{max-width:1300px;margin:0 auto}
+.depo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.dc{background:var(--white);border-radius:20px;padding:36px;border:1px solid var(--line);transition:all .3s}
+.dc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.dc-leaf{color:var(--sage);font-size:24px;margin-bottom:12px}
+.dc-text{font-family:var(--lora);font-style:italic;font-size:14px;line-height:1.85;color:var(--text);margin-bottom:24px}
+.dc-who{display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid var(--line)}
+.dc-av{width:44px;height:44px;background:var(--cream);border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.dc-name{font-size:13px;font-weight:600}
+.dc-role{font-size:11px;color:var(--muted);margin-top:2px}
+.dc-stars{color:var(--sage);font-size:12px;letter-spacing:1px;margin-top:4px}
+/* MÍDIA */
+.midia{padding:120px 60px;max-width:1300px;margin:0 auto}
+.midia-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.mc{background:var(--cream);border-radius:20px;padding:36px;border:1px solid var(--line);transition:all .3s}
+.mc:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08);border-color:var(--sage)}
+.mc-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(176,120,120,.12);border-radius:100px;padding:6px 14px;font-size:10px;font-weight:700;color:var(--sage-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:20px}
+.mc-title{font-family:var(--lora);font-size:17px;font-weight:400;line-height:1.45;margin-bottom:12px}
+.mc-desc{font-size:13px;line-height:1.75;color:var(--muted);margin-bottom:24px}
+.mc-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px}
+.mc-meta{font-size:11px;color:var(--muted);font-weight:500}
+.mc-link{font-size:11px;font-weight:700;color:var(--sage-dark);text-decoration:none;display:flex;align-items:center;gap:4px;transition:gap .2s}
+.mc-link:hover{gap:8px}
+/* CONTATO */
+.contato{padding:120px 60px;background:var(--cream);max-width:100%}
+.contato-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.cta-body{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:40px}
+.cta-infos{display:flex;flex-direction:column;gap:16px}
+.cinfo{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+.cinfo-dot{width:8px;height:8px;background:var(--sage);border-radius:50%;flex-shrink:0}
+.form{display:flex;flex-direction:column;gap:16px;background:var(--white);border-radius:24px;padding:40px;border:1px solid var(--line)}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--sage)}
+.fi{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--text);font-family:var(--body);font-size:14px;outline:none;transition:border-color .3s}
+.fi:focus{border-color:var(--sage)}
+.fi::placeholder{color:var(--muted)}
+textarea.fi{resize:none;height:100px}
+.btn-send{padding:16px;background:var(--sage);color:var(--white);font-family:var(--body);font-size:14px;font-weight:600;border:none;cursor:pointer;border-radius:12px;transition:all .3s}
+.btn-send:hover{background:var(--sage-dark);transform:translateY(-2px)}
+footer{background:var(--sage-dark);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.fl-logo{font-family:var(--lora);font-size:18px;font-weight:400;color:var(--white);font-style:italic}
+.fl-copy{font-size:11px;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:1px}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+.reveal.v{opacity:1;transform:none}
+.rl{opacity:0;transform:translateX(-20px);transition:opacity .7s,transform .7s}
+.rl.v{opacity:1;transform:none}
+@media(max-width:1024px){
+  nav,nav.s{padding:18px 32px}
+  .hero{grid-template-columns:1fr;padding:100px 32px 60px}
+  .hero-right{max-width:360px;margin:0 auto}
+  .sobre{grid-template-columns:1fr;gap:48px;padding:80px 32px}
+  
+  .servicos,.depo,.midia,.metodo{padding:80px 0}
+  .servicos-inner,.depo-inner,.midia,.metodo{padding-left:32px;padding-right:32px}
+  .contato{padding:80px 0}
+  .contato-inner{padding:0 32px;grid-template-columns:1fr}
+  .depo-grid,.midia-grid,.serv-grid{grid-template-columns:1fr 1fr}
+  .metodo-steps{grid-template-columns:1fr 1fr}
+  .metodo-steps::before{display:none}
+}
+@media(max-width:768px){
+  nav,nav.s{padding:16px 24px}
+  .hero{padding:90px 24px 56px}
+  .hero-right{max-width:320px}
+  .sobre{padding:72px 24px;gap:40px}
+  .servicos-inner,.depo-inner,.midia,.metodo{padding-left:24px;padding-right:24px}
+  .contato-inner{padding:0 24px}
+  .depo-grid,.midia-grid{grid-template-columns:1fr 1fr}
+  .serv-grid{grid-template-columns:1fr 1fr}
+  .metodo-steps{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .nav-links,.nav-btn{display:none}
+  .hamburger{display:flex}
+  nav,nav.s{padding:14px 20px}
+  .hero{padding:80px 20px 48px}
+  .sobre{padding:60px 20px}
+  
+  .servicos-inner,.depo-inner,.metodo,.midia{padding-left:20px;padding-right:20px}
+  .contato-inner{padding:0 20px}
+  .depo-grid,.midia-grid,.serv-grid{grid-template-columns:1fr}
+  .metodo-steps{grid-template-columns:1fr}
+  footer{padding:28px 20px;flex-direction:column;text-align:center}
+}
+@media(max-width:380px){
+  .hero{padding:70px 14px 40px}
+  .sobre{padding:48px 14px}
+  .servicos-inner,.depo-inner,.metodo,.midia{padding-left:14px;padding-right:14px}
+  .contato-inner{padding:0 14px}
+  .form{padding:28px 16px}
+  h1.hero-h1{font-size:36px}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-logo">Dra. Ana <em>Beatriz</em></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#metodo">Método</a></li>
+    <li><a href="#depo">Resultados</a></li>
+    <li><a href="#midia">Publicações</a></li>
+  </ul>
+  <a href="#contato" class="nav-btn">Agendar consulta</a>
+  <button class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="#sobre" onclick="closeMenu()">Sobre</a>
+  <a href="#servicos" onclick="closeMenu()">Serviços</a>
+  <a href="#metodo" onclick="closeMenu()">Método</a>
+  <a href="#depo" onclick="closeMenu()">Resultados</a>
+  <a href="#midia" onclick="closeMenu()">Publicações</a>
+  <a href="#contato" onclick="closeMenu()">Agendar</a>
+</div>
+<section class="hero">
+  <div class="blob"></div>
+  <div class="hero-left">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Nutricionista Integrativa · CRN-3 12345</div>
+    <h1 class="hero-h1">Nutrição que<br>respeita<em>quem você é.</em></h1>
+    <p class="hero-desc">Cuido do seu corpo com ciência, cuidado e respeito pela sua história. Sem dietas prontas, sem culpa — com saúde de verdade.</p>
+    <div class="hero-btns">
+      <a href="#contato" class="btn-sage">Agendar consulta</a>
+      <a href="#sobre" class="btn-warm">Conhecer meu trabalho</a>
+    </div>
+  </div>
+  <div class="hero-right rl">
+    <div class="hero-photo" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+      <div style="width:72px;height:72px;border-radius:50%;border:1.5px dashed rgba(122,68,68,0.35);display:flex;align-items:center;justify-content:center;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="rgba(122,68,68,0.45)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <span style="font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(122,68,68,0.45);">Sua foto aqui</span>
+    </div>
+  </div>
+</section>
+<section class="sobre" id="sobre">
+  <div class="sobre-visual rl">
+    <div class="sobre-img">🌱</div>
+    <div class="sobre-tags">
+      <span class="stag">🌿 Nutrição Funcional</span>
+      <span class="stag">🧠 Comportamental</span>
+      <span class="stag">🤱 Gestação</span>
+      <span class="stag">💊 Micronutrientes</span>
+    </div>
+  </div>
+  <div>
+    <div class="sec-label reveal">Sobre mim</div>
+    <h2 class="sec-title reveal">Uma nutricionista que <em>ouve</em> antes de prescrever</h2>
+    <p class="body-text reveal">Sou Ana Beatriz, nutricionista integrativa formada pela USP com 10 anos de prática clínica em São Paulo. Minha abordagem une nutrição funcional, comportamental e o respeito pela individualidade de cada paciente.</p>
+    <p class="body-text reveal">Não acredito em dietas universais. Acredito em planos alimentares que dialogam com a sua vida, sua rotina e as suas emoções.</p>
+    <div class="formacao">
+      <div class="fi-item reveal"><span class="fi-ico">🎓</span><div><div class="fi-name">Nutrição — USP São Paulo</div><div class="fi-sub">Graduação · 2013</div></div></div>
+      <div class="fi-item reveal"><span class="fi-ico">🌿</span><div><div class="fi-name">Nutrição Funcional — UNIP</div><div class="fi-sub">Especialização · 2015</div></div></div>
+      <div class="fi-item reveal"><span class="fi-ico">🧠</span><div><div class="fi-name">Comportamento Alimentar — IBNutri</div><div class="fi-sub">Extensão · 2018</div></div></div>
+      <div class="fi-item reveal"><span class="fi-ico">⭐</span><div><div class="fi-name">CRN-3 · 12345 · São Paulo</div><div class="fi-sub">Registro ativo</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="servicos" id="servicos">
+  <div class="servicos-inner">
+    <div class="sec-label reveal">Serviços</div>
+    <h2 class="sec-title reveal">Como posso <em>te ajudar</em></h2>
+    <div class="serv-grid">
+      <div class="sc reveal"><span class="sc-ico">🌿</span><div class="sc-name">Nutrição Integrativa</div><div class="sc-desc">Abordagem que une alimentação, emoção e estilo de vida para promover saúde real e duradoura.</div></div>
+      <div class="sc reveal"><span class="sc-ico">⚖️</span><div class="sc-name">Emagrecimento Saudável</div><div class="sc-desc">Processo consciente de perda de peso com foco no bem-estar, sem restrições desnecessárias.</div></div>
+      <div class="sc reveal"><span class="sc-ico">🤱</span><div class="sc-name">Nutrição na Gestação</div><div class="sc-desc">Suporte alimentar completo para gestantes e puérperas, com foco em saúde da mãe e do bebê.</div></div>
+      <div class="sc reveal"><span class="sc-ico">🧬</span><div class="sc-name">Saúde Digestiva</div><div class="sc-desc">Protocolos para síndrome do intestino irritável, refluxo, disbiose e modulação da microbiota.</div></div>
+      <div class="sc reveal"><span class="sc-ico">🌸</span><div class="sc-name">Saúde da Mulher</div><div class="sc-desc">Nutrição específica para todas as fases femininas — ciclo, menopausa, SOP e fertilidade.</div></div>
+      <div class="sc reveal"><span class="sc-ico">💻</span><div class="sc-name">Atendimento Online</div><div class="sc-desc">Consultas remotas com a mesma dedicação do presencial, de qualquer lugar do Brasil.</div></div>
+    </div>
+  </div>
+</section>
+<section class="metodo" id="metodo">
+  <div class="sec-label reveal">Como funciona</div>
+  <h2 class="sec-title reveal">Minha forma de <em>trabalhar</em></h2>
+  <div class="metodo-steps">
+    <div class="ms reveal"><div class="ms-circle">🎧</div><div class="ms-title">Escuta ativa</div><div class="ms-desc">Início com consulta de 60 min para entender seu histórico, rotina e objetivos profundamente.</div></div>
+    <div class="ms reveal"><div class="ms-circle">🔬</div><div class="ms-title">Avaliação completa</div><div class="ms-desc">Análise de exames, bioimpedância e diagnóstico nutricional individualizado.</div></div>
+    <div class="ms reveal"><div class="ms-circle">📋</div><div class="ms-title">Plano personalizado</div><div class="ms-desc">Protocolo alimentar que respeita seus gostos, cultura alimentar e rotina real.</div></div>
+    <div class="ms reveal"><div class="ms-circle">🌱</div><div class="ms-title">Crescimento contínuo</div><div class="ms-desc">Acompanhamento com revisões regulares e ajustes baseados no seu progresso real.</div></div>
+  </div>
+</section>
+<section class="depo" id="depo">
+  <div class="depo-inner">
+    <div class="sec-label reveal">Resultados</div>
+    <h2 class="sec-title reveal">Histórias que <em>inspiram</em></h2>
+    <div class="depo-grid">
+      <div class="dc reveal"><div class="dc-leaf">🌿</div><p class="dc-text">"A Ana Beatriz foi a primeira nutricionista que me fez sentir ouvida. O plano dela encaixou perfeitamente na minha rotina agitada."</p><div class="dc-who"><div class="dc-av">👩</div><div><div class="dc-name">Gabriela Santos</div><div class="dc-role">Gerente, 36 anos</div><div class="dc-stars">★★★★★</div></div></div></div>
+      <div class="dc reveal"><div class="dc-leaf">🌿</div><p class="dc-text">"Voltei ao meu peso ideal depois de duas gestações sem precisar fazer dieta. Só aprendi a comer de um jeito diferente."</p><div class="dc-who"><div class="dc-av">👩‍👧</div><div><div class="dc-name">Fernanda Lima</div><div class="dc-role">Mãe e professora, 34 anos</div><div class="dc-stars">★★★★★</div></div></div></div>
+      <div class="dc reveal"><div class="dc-leaf">🌿</div><p class="dc-text">"Meu intestino melhorou 90% em dois meses. Achei que precisava de remédio para sempre — era alimentação."</p><div class="dc-who"><div class="dc-av">👨</div><div><div class="dc-name">Lucas Moreira</div><div class="dc-role">Estudante, 24 anos</div><div class="dc-stars">★★★★★</div></div></div></div>
+    </div>
+  </div>
+</section>
+<section class="midia" id="midia">
+  <div class="sec-label reveal">Publicações & Autoridade</div>
+  <h2 class="sec-title reveal">Conhecimento <em>compartilhado</em></h2>
+  <div class="midia-grid">
+    <div class="mc reveal"><div class="mc-tag"><span>📰</span>Artigo</div><div class="mc-title">Relação entre microbiota intestinal e ansiedade: o que a ciência diz</div><div class="mc-desc">Artigo publicado na Revista Brasileira de Nutrição sobre os mecanismos do eixo intestino-cérebro e suas implicações clínicas.</div><div class="mc-foot"><span class="mc-meta">RBN · 2024</span><a href="#" class="mc-link">Ler →</a></div></div>
+    <div class="mc reveal"><div class="mc-tag"><span>🎤</span>Palestra</div><div class="mc-title">Nutrição integrativa na prática — Fórum de Saúde Feminina SP</div><div class="mc-desc">Apresentação para 300 profissionais de saúde sobre abordagem integrativa no tratamento de disfunções hormonais.</div><div class="mc-foot"><span class="mc-meta">FSF · SP · 2023</span><a href="#" class="mc-link">Ver →</a></div></div>
+    <div class="mc reveal"><div class="mc-tag"><span>🎓</span>Curso</div><div class="mc-title">Nutrição Comportamental para Clínicas</div><div class="mc-desc">Curso de formação continuada com 100h, ministrado para nutricionistas de todo o Brasil.</div><div class="mc-foot"><span class="mc-meta">100h · 4 turmas</span><a href="#" class="mc-link">Saiba mais →</a></div></div>
+  </div>
+</section>
+<section class="contato" id="contato">
+  <div class="contato-inner">
+    <div>
+      <div class="sec-label reveal">Contato</div>
+      <h2 class="sec-title reveal">Vamos cuidar<br>de <em>você juntas?</em></h2>
+      <p class="cta-body reveal">Agende sua consulta inicial. É o primeiro passo para uma relação mais saudável e consciente com a alimentação.</p>
+      <div class="cta-infos">
+        <div class="cinfo reveal"><span class="cinfo-dot"></span>Av. Paulista, São Paulo — SP</div>
+        <div class="cinfo reveal"><span class="cinfo-dot"></span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2a3aca3a0a7a3b6b0abb8acb7b6b0ab82a5afa3abaeeca1adaf">[email&#160;protected]</a></div>
+        <div class="cinfo reveal"><span class="cinfo-dot"></span>Atendimento presencial e online</div>
+        <div class="cinfo reveal"><span class="cinfo-dot"></span>CRN-3 · 12345</div>
+      </div>
+    </div>
+    <div class="form reveal">
+      <div class="fg"><label class="fl">Nome completo</label><input class="fi" type="text" placeholder="Seu nome"></div>
+      <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
+      <div class="fg"><label class="fl">Telefone</label><input class="fi" type="tel" placeholder="(11) 00000-0000"></div>
+      <div class="fg"><label class="fl">Como posso te ajudar?</label><textarea class="fi" placeholder="Conta um pouco sobre você…"></textarea></div>
+      <button class="btn-send" onclick="alert('Mensagem enviada! Entrarei em contato em breve 🌿')">Enviar mensagem</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="fl-logo">Dra. Ana Beatriz · Nutricionista</div>
+  <div class="fl-copy">© 2025 · CRN-3 12345 · São Paulo</div>
+</footer>
+<script>
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('s',scrollY>60));
+const obs=new IntersectionObserver(e=>e.forEach(i=>{
+  if(i.isIntersecting){i.target.classList.add('v');obs.unobserve(i.target)}
+}),{threshold:.07});
+document.querySelectorAll('.reveal,.rl').forEach(el=>obs.observe(el));
+function toggleMenu(){document.getElementById('mob').classList.toggle('open');}
+function closeMenu(){document.getElementById('mob').classList.remove('open');}
+</script>
+</body>
+</html>
